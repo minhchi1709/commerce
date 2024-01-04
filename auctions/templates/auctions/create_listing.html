@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+
+    <form action="{% url 'create_listing' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div class="input_container">
+                <div><label for="title">* Title</label></div>
+                <input type="text" name="title" class="input" autocomplete="off" autofocus placeholder="Title" required>
+            </div>
+            <div class="input_container">
+                <div><label for="description">* Description </label></div>
+                <input type="text" name="description" class="input" autocomplete="off" autofocus placeholder="Description" required>
+            </div>
+            <div class="input_container">
+                <Div><label for="bid">* Starting Bid </label></Div>
+                <input type="number" name="bid" class="input" autocomplete="off" autofocus placeholder="Starting Bid" required>
+            </div>
+            <div class="input_container">
+                <Div><label for="img">Optional: URL for image</label></Div>
+                <input type="text" name="img" class="input" autocomplete="off" autofocus placeholder="Optional: URL for image">
+            </div>
+            <div class="input_container">
+                <div><label for="category">Optional: Category</label></div>
+                <input type="text" name="category" class="input" autocomplete="off" autofocus placeholder="Optional: Category">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Create" style="margin-top: 10px;">
+        </div>
+    </form>
+    
+{% endblock %}

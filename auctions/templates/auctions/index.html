@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <div class="row">
+        <div class="col-8">
+            {% for auction in auctions %}
+            <a href="{% url 'listing' auction.id %}">
+            <div class="row image-container">
+                <img class="col-6 img" src="{{ auction.url_img }}" alt="{{ auction.title }}">
+                <div class="col-6">
+                    <span class="title font-weight-bold">{{ auction.title }}</span><br>
+                    <span class="price"><strong>Price: </strong>${{ auction.starting_bid }}</span><br>
+                    <span class="description">{{ auction.description }}</span><br>
+                    <span class="datetime">Created {{ auction.created_time }}</span>
+                </div>    
+            </div> 
+            </a>
+            {% empty %}
+            <h2>No active listings.</h2>
+            {% endfor %}
+        </div>
+
+        <div class="col-4" class="sold">
+            <h3 style="text-align: center;" class="font-weight-bold">Information Board</h3>
+            <ul>
+                {% for auction in sold_auctions %}
+                <li>The Listing {{ auction }} was sold to {{ auction.sold_to }} on {{ auction.sold_time }}. </li>
+                {% empty %}
+                <h2>No listing has been sold yet.</h2>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

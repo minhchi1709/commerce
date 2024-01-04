@@ -1,0 +1,123 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing: {{ listing.title }}</h2>
+
+    {% if owner %}
+
+    <div id="edit-and-close">
+        <a href="{% url 'edit_listing' listing.id %}">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </a>
+        <a href="{% url 'close_listing' listing.id %}">
+            <button type="submit" class="btn btn-primary" id="close">Close</button>
+        </a>
+    </div>
+    <img src="{{ listing.url_img }}" alt="{{ listing.title }}" class="col-8">
+    <p>{{ listing.description }}</p>
+    <h2>${{ listing.starting_bid }}</h2>
+    <p>{{ num_of_bids }} bid(s) so far. You owned this listing.</p>
+
+    {% if max_bid != 0 %}
+    <h2>Currently highest bid: ${{max_bid}} by {{bidder}}</h2>
+    {% endif %}
+
+    <form>
+        {% csrf_token %}
+        <div style="margin-bottom: 10px;">
+            <button class="input btn btn-secondary"name="bid">You owned this listing and hence cannot bid</button>
+        </div>
+        <button type="submit" class="btn btn-primary">Place Bid</button>
+    </form>
+    <br>
+    <h3 class="font-weight-bold">Details</h3>
+    <ul>
+        <li>Listed by: <span style="color:blue">{{ listing.owner.first_name }}</span></li>
+        <li>Category: {{ listing.category}} </li>
+    </ul>
+    <h3 class="font-weight-bold">Comments</h3>
+
+    {% for comment in comments %}
+    <div class="row comment">
+        <label for="{{comment.commenter}}" class="label-for-comment col-2">User {{ comment.commenter }}: </label>
+        <textarea name="{{comment.commenter}}" class="col-auto" rows="4" cols="100" placeholder="Your comment here..." disabled>{{ comment.comment }}</textarea>
+    </div>
+    {% endfor %}
+
+    <form action="{% url 'add_comment' listing.id %}" method="post">
+            
+        {% csrf_token %}
+        
+        <textarea name="comment" rows="4" cols="100" placeholder="Your comment here..."></textarea><br>
+        <input type="submit" class="btn btn-primary comment-button" value="Comment">
+    </form>
+    {% else %}
+
+        <div id="button">
+            {% if already_watched %}
+
+            <Div><button class="btn btn-secondary">Watchlist</button></Div>
+
+            {% else %}
+
+            <form action="{% url 'add_to_watchlist' listing.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary">Add To Watchlist</button>
+            </form>
+
+            {% endif %}
+        </div>
+
+        <img src="{{ listing.url_img }}" alt="{{ listing.title }}" class="col-8">
+        <p>{{ listing.description }}</p>
+        <h2>${{ listing.starting_bid }}</h2>
+        {% if max_bid != 0 %}
+        <h2>Currently highest bid: ${{max_bid}} by {{bidder}}</h2>
+
+        {% endif %}
+
+        {% if already_bid %}
+
+        <p>{{ num_of_bids }} bid(s) so far. Your highest bid is currently ${{ current_max_bid }}.</p>
+
+        {% else %}
+
+        <p>{{ num_of_bids }} bid(s) so far. Your have not bid yet.</p>
+
+        {% endif %}
+
+        <form action="{% url 'bid' listing.id %}" method="post">
+            {% csrf_token %}
+            <div style="margin-bottom: 10px;">
+                <input class="input" autocomplete="off" autofocus name="bid" placeholder="Bid" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Place Bid</button>
+        </form>
+        <br>
+        <h3 class="font-weight-bold">Details</h3>
+        <ul>
+            <li>Listed by: <span style="color:blue">{{ listing.owner.first_name }}</span></li>
+            <li>Category: {{ listing.category}} </li>
+        </ul>
+        <h3 class="font-weight-bold">Comments</h3>
+
+        {% for comment in comments %}
+
+        <div class="row comment">
+            <label for="{{comment.commenter}}" class="label-for-comment col-2">User {{ comment.commenter }}: </label>
+            <textarea name="{{comment.commenter}}" class="col-auto" rows="4" cols="100" placeholder="Your comment here..." disabled>{{ comment.comment }}</textarea>
+        </div>
+
+        {% endfor %}
+        
+        <form action="{% url 'add_comment' listing.id %}" method="post">
+            
+            {% csrf_token %}
+            
+            <textarea name="comment" rows="4" cols="100" placeholder="Your comment here..."></textarea><br>
+            <input type="submit" class="btn btn-primary comment-button" value="Comment">
+        </form>
+
+    {% endif %}
+    
+{% endblock %}

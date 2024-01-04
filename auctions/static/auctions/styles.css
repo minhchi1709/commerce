@@ -1,0 +1,93 @@
+body {
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+.img{
+    max-height: 280px;
+}
+
+.input {
+    width: 50%;
+    
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.title{
+    
+    color: black;
+    font-size: 30px;
+}
+
+.price{
+    color: black;
+    font-size: 25px;
+}
+
+.description {
+    color: black;
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+}
+
+.datetime {
+    color: grey;
+    font-size: 15px;
+    position: relative;
+    top: 20px;
+}
+
+.input_container{
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.inner-container{
+    padding: 5px 5px 5px 5px;
+}
+
+.label-for-comment {
+    position: relative;
+    font-size: 25px;
+}
+
+.comment{
+    margin-bottom: 20px;
+}
+
+.comment-button {
+    position: relative;
+    
+}
+
+.image-container{
+    width: 90%;
+    height: 300px;
+    margin-left: 20px;
+    border: solid grey;
+    margin: 10px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+#close {
+    position: absolute;
+    right: 1760px;
+}
+
+.sold {
+    border: 1px grey;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+#edit-and-close {
+    margin-bottom: 20px;
+}
+
+#button {
+    margin-bottom: 20px;
+}

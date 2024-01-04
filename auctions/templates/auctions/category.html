@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories:</h2>
+    {% for listings in listings_by_category %}
+    <h2> {{listings.category}} </h2>
+        {% for auction in listings.listings %}
+        <a href="{% url 'listing' auction.id %}" class="container">
+            <div class="row image-container">
+                <img class="col-4 img" src="{{ auction.url_img }}" alt="{{ auction.title }}">
+                <div class="col-8">
+                    <span class="title font-weight-bold">{{ auction.title }}</span><br>
+                    <span class="price"><strong>Price: </strong>${{ auction.starting_bid }}</span><br>
+                    <span class="description">{{ auction.description }}</span><br>
+                    <span class="datetime">Created {{ auction.created_time }}</span>
+                </div>    
+            </div> 
+        </a>
+        {% endfor %}
+    {% empty %}
+    <h2>No listings for this cateogory.</h2>
+    {% endfor %}
+{% endblock %}

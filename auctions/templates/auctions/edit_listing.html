@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Edit Listing {{listing.title}}</h2>
+
+    <form action="{% url 'edit_listing' listing.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div class="input_container">
+                <div><label for="title">* Title</label></div>
+                <input type="text" name="title" class="input" autocomplete="off" autofocus placeholder="Title" value="{{ listing.title }}">
+            </div>
+            <div class="input_container">
+                <div><label for="description">* Description </label></div>
+                <input type="text" name="description" class="input" autocomplete="off" autofocus placeholder="Description" value="{{ listing.description }}">
+            </div>
+            <div class="input_container">
+                <Div><label for="bid">* Starting Bid </label></Div>
+                <input type="number" name="bid" class="input" autocomplete="off" autofocus placeholder="Starting Bid" value="{{ listing.starting_bid }}">
+            </div>
+            <div class="input_container">
+                <Div><label for="img">Optional: URL for image</label></Div>
+                <input type="text" name="img" class="input" autocomplete="off" autofocus placeholder="Optional: URL for image" value="{{ listing.url_img }}">
+            </div>
+            <div class="input_container">
+                <div><label for="category">Optional: Category</label></div>
+                <input type="text" name="category" class="input" autocomplete="off" autofocus placeholder="Optional: Category" value="{{ listing.category }}">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Confirm Changes" style="margin-top: 10px;">
+        </div>
+    </form>
+    
+{% endblock %}
